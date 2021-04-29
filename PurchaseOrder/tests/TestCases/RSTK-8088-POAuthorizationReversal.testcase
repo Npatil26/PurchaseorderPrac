@@ -113,5 +113,173 @@
         </argument>
       </arguments>
     </caseCall>
+    <apiCall apiId="com.provar.plugins.forcedotcom.core.testapis.ApexSoqlQuery" name="ApexSoqlQuery" testItemId="21" title="SOQL Query: select Id,rstk__poline_ordno__c,rstk__formula_qtyrcvd__c, rstk__poline_ordsts__c,rstk__poline_qtyacc__c from rstk__poline__c where rstk__poline_ordno__c ='{POHDRID}'=&gt;poline">
+      <arguments>
+        <argument id="soqlQuery">
+          <value class="compound">
+            <parts>
+              <value valueClass="string">select Id,rstk__poline_ordno__c,rstk__formula_qtyrcvd__c, rstk__poline_ordsts__c,rstk__poline_qtyacc__c from rstk__poline__c where rstk__poline_ordno__c ='</value>
+              <variable>
+                <path element="POHDRID"/>
+              </variable>
+              <value valueClass="string">'</value>
+            </parts>
+          </value>
+        </argument>
+        <argument id="apexConnectionName">
+          <value class="value" valueClass="string">QARSFAdmin</value>
+        </argument>
+        <argument id="resultListName">
+          <value class="value" valueClass="string">poline</value>
+        </argument>
+        <argument id="resultScope">
+          <value class="value" valueClass="string">Test</value>
+        </argument>
+      </arguments>
+    </apiCall>
+    <apiCall apiId="com.provar.plugins.bundled.apis.control.SetValues" name="SetValues" testItemId="24" title="Set Values: rownum">
+      <arguments>
+        <argument id="values">
+          <value class="valueList" mutable="Mutable">
+            <namedValues mutable="Mutable">
+              <namedValue name="valuePath">
+                <value class="value" valueClass="string">rownum</value>
+              </namedValue>
+              <namedValue name="value">
+                <value class="value" valueClass="string">1</value>
+              </namedValue>
+              <namedValue name="valueScope">
+                <value class="value" valueClass="string">Test</value>
+              </namedValue>
+            </namedValues>
+          </value>
+        </argument>
+      </arguments>
+    </apiCall>
+    <apiCall apiId="com.provar.plugins.bundled.apis.control.ForEach" name="ForEach" testItemId="20" title="For Each: {poline}=&gt;lineiteration">
+      <arguments>
+        <argument id="list">
+          <value class="variable">
+            <path element="poline"/>
+          </value>
+        </argument>
+        <argument id="fromItem">
+          <value class="value" valueClass="decimal">1</value>
+        </argument>
+        <argument id="valueName">
+          <value class="value" valueClass="string">lineiteration</value>
+        </argument>
+        <argument id="continueOnFailure"/>
+      </arguments>
+      <clauses>
+        <clause name="substeps" testItemId="30">
+          <steps>
+            <apiCall apiId="com.provar.plugins.bundled.apis.AssertValues" name="AssertValues" testItemId="31" title="Assert: 8-All Line Items Received EqualTo {lineiteration.rstk__poline_ordsts__c}">
+              <arguments>
+                <argument id="expectedValue">
+                  <value class="value" valueClass="string">8-All Line Items Received</value>
+                </argument>
+                <argument id="actualValue">
+                  <value class="variable">
+                    <path element="lineiteration"/>
+                    <path element="rstk__poline_ordsts__c"/>
+                  </value>
+                </argument>
+                <argument id="comparisonType">
+                  <value class="value" valueClass="string">EqualTo</value>
+                </argument>
+                <argument id="caseSensitive">
+                  <value class="value" valueClass="boolean">true</value>
+                </argument>
+                <argument id="numeric">
+                  <value class="value" valueClass="boolean">false</value>
+                </argument>
+                <argument id="retainDecimals">
+                  <value class="value" valueClass="boolean">false</value>
+                </argument>
+                <argument id="nullGreater">
+                  <value class="value" valueClass="boolean">false</value>
+                </argument>
+                <argument id="matchMultiLine">
+                  <value class="value" valueClass="boolean">false</value>
+                </argument>
+                <argument id="matchDotAll">
+                  <value class="value" valueClass="boolean">false</value>
+                </argument>
+                <argument id="failureMessage"/>
+              </arguments>
+            </apiCall>
+            <apiCall apiId="com.provar.plugins.bundled.apis.AssertValues" name="AssertValues" testItemId="14" title="Assert: {ExcelData[rownum].Quantity} EqualTo {poline.rstk__poline_qtyacc__c}">
+              <arguments>
+                <argument id="expectedValue">
+                  <value class="variable">
+                    <path element="ExcelData">
+                      <filter class="conditionFilter">
+                        <condition class="variable">
+                          <path element="rownum"/>
+                        </condition>
+                      </filter>
+                    </path>
+                    <path element="Quantity"/>
+                  </value>
+                </argument>
+                <argument id="actualValue">
+                  <value class="variable">
+                    <path element="poline"/>
+                    <path element="rstk__poline_qtyacc__c"/>
+                  </value>
+                </argument>
+                <argument id="comparisonType">
+                  <value class="value" valueClass="string">EqualTo</value>
+                </argument>
+                <argument id="caseSensitive">
+                  <value class="value" valueClass="boolean">true</value>
+                </argument>
+                <argument id="numeric">
+                  <value class="value" valueClass="boolean">false</value>
+                </argument>
+                <argument id="retainDecimals">
+                  <value class="value" valueClass="boolean">false</value>
+                </argument>
+                <argument id="nullGreater">
+                  <value class="value" valueClass="boolean">false</value>
+                </argument>
+                <argument id="matchMultiLine">
+                  <value class="value" valueClass="boolean">false</value>
+                </argument>
+                <argument id="matchDotAll">
+                  <value class="value" valueClass="boolean">false</value>
+                </argument>
+                <argument id="failureMessage"/>
+              </arguments>
+            </apiCall>
+            <apiCall apiId="com.provar.plugins.bundled.apis.control.SetValues" name="SetValues" testItemId="37" title="Set Values: rownum">
+              <arguments>
+                <argument id="values">
+                  <value class="valueList" mutable="Mutable">
+                    <namedValues mutable="Mutable">
+                      <namedValue name="valuePath">
+                        <value class="value" valueClass="string">rownum</value>
+                      </namedValue>
+                      <namedValue name="value">
+                        <value class="add">
+                          <lhs class="variable">
+                            <path element="rownum"/>
+                          </lhs>
+                          <rhs class="value" valueClass="decimal">1</rhs>
+                        </value>
+                      </namedValue>
+                      <namedValue name="valueScope">
+                        <value class="value" valueClass="string">Test</value>
+                      </namedValue>
+                    </namedValues>
+                  </value>
+                </argument>
+              </arguments>
+            </apiCall>
+          </steps>
+        </clause>
+      </clauses>
+    </apiCall>
   </steps>
 </testCase>
